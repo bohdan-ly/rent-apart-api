@@ -23,7 +23,7 @@ const createSendToken = ({ id, user = null, statusCode, res }) => {
     user.active = undefined;
     resBody.data = { user };
   }
-
+  console.error(process.env.JWT_COOKIE_EXPIRES_IN);
   const cookieOptions = {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN + 24 * 60 * 60 * 1000
