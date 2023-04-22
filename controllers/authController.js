@@ -6,8 +6,6 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const Email = require("../utils/email");
 
-console.log(process.env.JWT_EXPIRES_IN);
-
 const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
@@ -23,11 +21,13 @@ const createSendToken = ({ id, user = null, statusCode, res }) => {
     user.active = undefined;
     resBody.data = { user };
   }
-  console.error(process.env.JWT_COOKIE_EXPIRES_IN);
+  const expires = new Date(
+    Date.now() + process.env.JWT_COOKIE_EXPIRES_IN + 24 * 60 * 60 * 1000
+  );
+  console.error(expires);
+
   const cookieOptions = {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN + 24 * 60 * 60 * 1000
-    ),
+    expires: expires,
     httpOnly: true,
   };
 
