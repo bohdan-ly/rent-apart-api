@@ -24,7 +24,7 @@ const createSendToken = ({ id, user = null, statusCode, res }) => {
   const expires = new Date(
     Date.now() + process.env.JWT_COOKIE_EXPIRES_IN + 24 * 60 * 60 * 1000
   );
-  console.error(expires);
+  console.error(Date.now(), process.env.JWT_COOKIE_EXPIRES_IN, expires);
 
   const cookieOptions = {
     expires: expires,
