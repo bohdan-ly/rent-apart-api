@@ -57,7 +57,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body || {};
-
+  console.log(req.body);
   // 1) Validate email and password
 
   if (!email || !password)

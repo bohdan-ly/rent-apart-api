@@ -12,6 +12,7 @@ const {
   deleteRealty,
   uploadRealtyImages,
   resizeRealtyImages,
+  uploadCover,
   // checkID,
   // validateNewTour,
 } = require("../controllers/realtyController");
@@ -35,12 +36,25 @@ router.route("/distance/:latlng/:unit").get(distance);
 
 router.route("/monthly-plan/:year").get(verify, getMonthlyPlan);
 
-router.route("/").get(getAllRealties).post(verify, createRealty);
+router.route("/").get(verify, getAllRealties).post(verify, createRealty);
 
 router
   .route("/:id")
   .get(getRealty)
   .patch(verify, uploadRealtyImages, resizeRealtyImages, updateRealty)
   .delete(verify, deleteRealty);
+
+router.post(
+  "/upload-image",
+  uploadRealtyImages,
+  resizeRealtyImages,
+  function (req, res) {
+    console.log("upload-image", req.body.imageCover);
+    res.status(200).json({
+      status: "success",
+      data: { imageCover: req.body.imageCover, images: req.body.images },
+    });
+  }
+);
 
 module.exports = router;
