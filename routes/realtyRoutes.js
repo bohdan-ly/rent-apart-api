@@ -57,4 +57,11 @@ router.post(
   }
 );
 
+router.post("/wayforpay", function (req, res) {
+  console.log("Wayforpay", req.body, req);
+  res.status(200).json({
+    status: "success",
+  });
+});
+
 module.exports = router;
