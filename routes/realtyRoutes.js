@@ -58,7 +58,7 @@ router.post(
 );
 
 router.post("/wayforpay", function (req, res) {
-  console.log("Wayforpay", req.body._peername);
+  console.log("Wayforpay", req.body);
   res.status(200).json({
     status: "success",
   });
