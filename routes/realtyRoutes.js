@@ -1,4 +1,5 @@
 const express = require("express");
+const fs = require("fs");
 const {
   getAllRealties,
   createRealty,
@@ -58,7 +59,14 @@ router.post(
 );
 
 router.post("/wayforpay", function (req, res) {
-  console.log("Wayforpay", Object.keys(req));
+  console.log(
+    "Wayforpay",
+    req._body,
+    req.query,
+    req._events,
+    req._readableState
+  );
+  fs.writeFileSync("wayforpay.json", JSON.stringify(req));
   res.status(200).json({
     status: "success",
   });
