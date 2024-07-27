@@ -21,7 +21,7 @@ const viewRouter = require("./routes/viewRoutes");
 const app = express();
 app.use(cors());
 
-app.set("trust proxy", true);
+app.set("trust proxy", ["88.85.72.203", "88.85.72.203"]);
 
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
