@@ -72,7 +72,7 @@ function censor(censor) {
     )
       return "[Circular]";
 
-    if (i >= 29)
+    if (i >= 1000)
       // seems to be a harded maximum of 30 serialized objects?
       return "[Unknown]";
 
