@@ -59,7 +59,7 @@ router.post(
 );
 
 router.post("/wayforpay", function (req, res) {
-  console.log("Wayforpay", JSON.stringify(req));
+  console.log("Wayforpay", req);
 
   res.status(200).json({
     status: "success",
