@@ -66,7 +66,6 @@ router.post("/wayforpay", function (req, res) {
     req._events,
     req._readableState
   );
-  fs.writeFileSync("wayforpay.json", JSON.stringify(req));
   res.status(200).json({
     status: "success",
   });

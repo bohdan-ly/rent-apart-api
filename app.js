@@ -50,7 +50,13 @@ app.use("/api", limiter);
 
 // Body parser with limit on 10kb, reading data from body into req.body
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(
+  bodyParser.json({
+    type(req) {
+      return true;
+    },
+  })
+);
 app.use(cookieParser());
 
 // Data sanitization against NoSQL query injection
