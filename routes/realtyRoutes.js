@@ -19,6 +19,8 @@ const {
 } = require("../controllers/realtyController");
 const reviewRouter = require("./reviewRoutes");
 const { verify, restrictTo } = require("../controllers/authController");
+const Logs = require("../models/logsModel");
+const AppError = require("../utils/appError");
 
 const router = express.Router();
 
@@ -58,14 +60,15 @@ router.post(
   }
 );
 
-router.post("/wayforpay", function (req, res) {
+router.post("/wayforpay", async (req, res, next) => {
   console.log("Wayforpay", req);
   console.log("BODY!!!", Object.keys(req));
 
-  fs.writeFile(
-    `../public/logs/wayforpay_1.json`,
-    JSON.stringify(req)
-  );
+  const doc = await Logs.create(JSON.stringify(req));
+
+  if (!doc) {
+    return next(new AppError("No document created", 500));
+  }
 
   res.status(200).json({
     status: "success",
