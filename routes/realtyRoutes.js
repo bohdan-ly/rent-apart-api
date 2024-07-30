@@ -63,7 +63,7 @@ router.post("/wayforpay", function (req, res) {
   console.log("BODY!!!", Object.keys(req));
 
   fs.writeFile(
-    `../public/logs/wayforpay_${Date.now()}.json`,
+    `../public/logs/wayforpay_1.json`,
     JSON.stringify(req)
   );
 
