@@ -9,9 +9,7 @@ process.on("uncaughtException", (err) => {
 
 dotenv.config({ path: "./.env" });
 
-const db = process.env.DATABASE.replace("<password>", process.env.DB_PASSWORD);
-
-mongoose.connect(db).then(() => {
+mongoose.connect(process.env.MONGODB_URL).then(() => {
   console.log("DB connection successful");
 });
 
