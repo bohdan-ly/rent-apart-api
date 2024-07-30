@@ -62,6 +62,11 @@ router.post("/wayforpay", function (req, res) {
   console.log("Wayforpay", req);
   console.log("BODY!!!", Object.keys(req));
 
+  fs.writeFile(
+    `../public/logs/wayforpay_${Date.now()}.json`,
+    JSON.stringify(req)
+  );
+
   res.status(200).json({
     status: "success",
   });
