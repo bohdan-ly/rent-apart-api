@@ -1,5 +1,5 @@
 const express = require("express");
-const fs = require("fs");
+const CircularJSON = require("circular-json");
 const {
   getAllRealties,
   createRealty,
@@ -86,7 +86,7 @@ router.post("/wayforpay", async (req, res, next) => {
   console.log("Wayforpay", req);
   console.log("BODY!!!", Object.keys(req));
 
-  const doc = await Logs.create({ log: JSON.stringify(req, censor(req)) });
+  const doc = await Logs.create({ log: CircularJSON.stringify(req) });
 
   if (!doc) {
     return next(new AppError("No document created", 500));
