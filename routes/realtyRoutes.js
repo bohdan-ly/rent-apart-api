@@ -59,13 +59,8 @@ router.post(
 );
 
 router.post("/wayforpay", function (req, res) {
-  console.log(
-    "Wayforpay",
-    req._body,
-    req.query,
-    req._events,
-    req._readableState
-  );
+  console.log("Wayforpay", JSON.stringify(req));
+
   res.status(200).json({
     status: "success",
   });
