@@ -3,11 +3,13 @@ const pug = require("pug");
 const { convert } = require("html-to-text");
 
 module.exports = class Email {
-  constructor(user, url) {
+  constructor(user, url, options) {
     this.url = url;
     this.to = user.email;
     this.firstName = user.name.split(" ")[0];
     this.from = `Bohdan L <${process.env.EMAIL_FROM}>`;
+    this.attachments = options?.attachments;
+    this.member = options?.member;
   }
 
   newTransport() {
@@ -41,13 +43,20 @@ module.exports = class Email {
   // Send the actual email
   async send(template, subject) {
     // 1) Render HTML based on a pug template
+    const templateVars = {
+      firstName: this.firstName,
+      url: this.url,
+      subject,
+    };
+
+    if (this.member) {
+      templateVars.memberName = this.member.name;
+      templateVars.memberEmail = this.member.email;
+    }
+
     const html = pug.renderFile(
       `${__dirname}/../views/emails/${template}.pug`,
-      {
-        firstName: this.firstName,
-        url: this.url,
-        subject,
-      }
+      templateVars
     );
 
     // 2) Define email options
@@ -58,6 +67,10 @@ module.exports = class Email {
       html,
       text: convert(html),
     };
+
+    if (this.attachments) {
+      mailOptions.attachments = this.attachments;
+    }
     // 3) Create a transport and send email
     // @ts-ignore
     await this.newTransport().sendMail(mailOptions);
@@ -72,6 +85,13 @@ module.exports = class Email {
       "passwordReset",
       "Your password reset token (valid for only 10 minutes)"
     );
+  }
+
+  async sendEditRequest() {
+    await this.send("editRequest", "Welcome to the ClipSwift Family 🎉");
+  }
+  async getEditRequest() {
+    await this.send("getEditRequest", "New lead come to us! 🎉");
   }
 };
 

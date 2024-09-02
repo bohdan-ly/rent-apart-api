@@ -12,6 +12,7 @@ const {
   getMe,
 } = require('../controllers/userController');
 const {
+  csEditReq,
   signup,
   login,
   logout,
@@ -24,6 +25,7 @@ const {
 
 const router = express.Router();
 
+router.post('/editRequest', csEditReq);
 router.post('/signup', signup);
 router.post('/login', login);
 router.get('/logout', logout);

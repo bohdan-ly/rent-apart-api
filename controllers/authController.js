@@ -5,6 +5,7 @@ const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const Email = require("../utils/email");
+const EditRequest = require("../models/editRequestModel");
 
 const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -53,6 +54,42 @@ exports.signup = catchAsync(async (req, res, next) => {
   await new Email(newUser, url).sendWelcome();
 
   createSendToken({ id: newUser._id, user: newUser, statusCode: 201, res });
+});
+
+exports.csEditReq = catchAsync(async (req, res, next) => {
+  const { name, email } = req.body || {};
+
+  const newRequest = await EditRequest.create({
+    name,
+    email,
+  });
+
+  await new Email(newRequest, null, {
+    attachments: [
+      {
+        filename: "logo-black.png",
+        path: `${__dirname}/../public/img/logo-black.png`,
+        cid: "logo1",
+      },
+    ],
+  }).sendEditRequest();
+
+  await new Email(
+    { email: "business@clip-swift.com", name: "ClipSwift Admin" },
+    null,
+    {
+      member: { email: newRequest.email, name: newRequest.name },
+      attachments: [
+        {
+          filename: "logo-black.png",
+          path: `${__dirname}/../public/img/logo-black.png`,
+          cid: "logo1",
+        },
+      ],
+    }
+  ).getEditRequest();
+
+  res.status(201).json({ status: "success" });
 });
 
 exports.login = catchAsync(async (req, res, next) => {

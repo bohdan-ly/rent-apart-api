@@ -1,0 +1,20 @@
+extends baseEmail
+
+block content
+    p Hi #{firstName},
+        p Welcome to ClipSwift! We're thrilled to have you on board 🎉🙏
+        p Our team is dedicated to ensuring your experience with us is seamless and rewarding.
+        p A ClipSwift manager will be reaching out to you ASAP to assist with your needs and answer any questions you might have.
+        p If you need any help with content creation, please don't hesitate to contact me!
+        p - Bohdan Lyshchenko, CEO at ClipSwift
+
+    .footer
+        .footer__logo
+            img(src='cid:logo1' alt='ClipSwift logo')
+        ul.footer__nav
+            li: a(href='https://www.instagram.com/clip.swift') Instagram
+            li: a(href='https://www.youtube.com/@Clip-Swift-ua') YouTube
+            li: a(href='mailto:business@clip-swift.com') Become a member
+            li: a(href='https://t.me/bohdan_ovcharenko') Careers
+            li: a(href='mailto:business@clip-swift.com') Contact
+        p.footer__copyright &copy; #{new Date().getFullYear()} by ClipSwift. All rights reserved.

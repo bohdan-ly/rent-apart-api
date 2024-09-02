@@ -1,0 +1,24 @@
+extends baseEmail
+
+block content
+    p Hi #{firstName},
+        p New member interested in us!🥳
+        p Please follow him back 🦾
+        p Here's a new member info:
+        p Name: #{memberName}
+        p Email: 
+            a(href=`mailto:${memberEmail}`) #{memberEmail}
+        
+        p If you need any help with content creation, please don't hesitate to contact me!
+        p - Bohdan Lyshchenko, CEO at ClipSwift
+
+    .footer
+        .footer__logo
+            img(src='cid:logo1' alt='ClipSwift logo')
+        ul.footer__nav
+            li: a(href='https://www.instagram.com/clip.swift') Instagram
+            li: a(href='https://www.youtube.com/@Clip-Swift-ua') YouTube
+            li: a(href='mailto:business@clip-swift.com') Become a member
+            li: a(href='https://t.me/bohdan_ovcharenko') Careers
+            li: a(href='mailto:business@clip-swift.com') Contact
+        p.footer__copyright &copy; #{new Date().getFullYear()} by ClipSwift. All rights reserved.
